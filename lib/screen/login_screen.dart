@@ -41,9 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
+      appBar: AppBar(title: const Text('Login')),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -55,10 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 20),
                 const Text(
                   'Welcome Back',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
@@ -75,7 +70,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (value == null || value.isEmpty) {
                       return 'Email cannot be empty';
                     }
-                    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                    if (!RegExp(
+                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                    ).hasMatch(value)) {
                       return 'Please enter a valid email';
                     }
                     return null;
@@ -90,7 +87,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     prefixIcon: const Icon(Icons.lock),
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                        _isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                       onPressed: () {
                         setState(() {
@@ -113,8 +112,26 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 24.0),
                 ElevatedButton(
-                  onPressed: (){
-                    Navigator.push(context,MaterialPageRoute(builder: (context)=>HomeScreen()));
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      // Example login check (you can replace this with real backend or Firebase later)
+                      if (_emailController.text == "test@gmail.com" &&
+                          _passwordController.text == "123456") {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Invalid email or password"),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 50),
@@ -125,10 +142,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ),
+
                 const SizedBox(height: 16.0),
                 TextButton(
-                  onPressed: (){
-                    Navigator.push(context,MaterialPageRoute(builder: (context)=>RegisterScreen()));
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegisterScreen()),
+                    );
                   },
                   child: const Text(
                     'Don\'t have an account? Register',
