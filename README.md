@@ -1,1 +1,1 @@
-# pos_moblie
+# pos_mobile
