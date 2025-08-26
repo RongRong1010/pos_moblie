@@ -3,6 +3,7 @@ import 'main_screen.dart';
 import 'notification_screen.dart';
 import 'search_screen.dart';
 
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -17,37 +18,70 @@ class _HomeScreenState extends State<HomeScreen> {
     MainScreen(),
     SearchScreen(),
     NotificationScreen(),
+   
+  ];
+
+  static const List<String> _screenTitles = [
+    'Main',
+    'Search',
+    'Notifications',
+    
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+    // Close the drawer if open
+    Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Main',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        onTap: _onItemTapped,
+      appBar: AppBar(
+        title: Text(_screenTitles[_selectedIndex]),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Main'),
+              selected: _selectedIndex == 0,
+              onTap: () => _onItemTapped(0),
+            ),
+            ListTile(
+              leading: const Icon(Icons.search),
+              title: const Text('Search'),
+              selected: _selectedIndex == 1,
+              onTap: () => _onItemTapped(1),
+            ),
+            ListTile(
+              leading: const Icon(Icons.notifications),
+              title: const Text('Notifications'),
+              selected: _selectedIndex == 2,
+              onTap: () => _onItemTapped(2),
+            ),
+           
+          ],
+        )
       ),
     );
   }
 }
+
+      
