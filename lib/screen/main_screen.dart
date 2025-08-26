@@ -12,7 +12,7 @@ class MainScreen extends StatelessWidget {
       body: const Center(
         child: Text(
           'Welcome to the Main Screen!',
-          style: TextStyle(fontSize: 27),
+          style: TextStyle(fontSize: 24),
         ),
       ),
     );
