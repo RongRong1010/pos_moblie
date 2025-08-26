@@ -112,27 +112,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 24.0),
                 ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Example login check (you can replace this with real backend or Firebase later)
-                      if (_emailController.text == "test@gmail.com" &&
-                          _passwordController.text == "123456") {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
-                          ),
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Invalid email or password"),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                      }
-                    }
-                  },
+                  onPressed:
+                      _handleLogin, // Use the function that validates first
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 50),
                     backgroundColor: Colors.blue,
@@ -148,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => RegisterScreen()),
+                      MaterialPageRoute(builder: (context) => const RegisterScreen()),
                     );
                   },
                   child: const Text(
